@@ -101,3 +101,121 @@ function pairSum(numbers, target) {
     }
   }
 }
+
+/*
+Exercice 4:
+N*37
+
+Given a string str, determine if it is a palindrome. Return true if it is, and false otherwise.
+
+A string is a palindrome if, after changing all uppercase letters to lowercase and discarding all non-alphanumeric characters, it remains identical when read forward and backward. Alphanumeric characters consist of both letters and numbers.
+Input
+
+    str: string: A string
+
+Examples
+
+Input: str = "No 'x' in Nixon"
+Output: true
+Explanation: After removing non-alphanumeric characters and converting to lowercase, the string becomes 'noxinnixon', which is a palindrome.
+
+Input: str = "Was it a car or a cat I saw?"
+Output: true
+Explanation: After removing non-alphanumeric characters and converting to lowercase, the string becomes 'wasitacaroracatisaw', which is a palindrome.
+
+*/
+
+/**
+ * @param {string} str
+ * @return {boolean}
+ */
+function isStringPalindrome(str) {
+  const cleanedStr = str.toLowerCase().replace(/[^0-9a-z]/g, "");
+  // Comparer avec sa version inversée
+  return cleanedStr === cleanedStr.split("").reverse().join("");
+}
+
+/*
+Exercise 5:
+N*104
+Implement a queue data structure in JavaScript that contains the following operations:
+
+    new Queue(): Creates an instance of a Queue class that doesn't contain any items. The constructor does not accept any arguments.
+    enqueue(): Adds an item to the back of the queue. Required time complexity: O(1).
+    dequeue(): Removes an item from the front of the queue. Required time complexity: O(1).
+    isEmpty(): Determines if the queue is empty. Required time complexity: O(1).
+    front(): Returns the item at the front of the queue without removing it from the queue. Required time complexity: O(1).
+    back(): Returns the item at the back of the queue without removing it from the queue. Required time complexity: O(1).
+    length(): Returns the number of items in the queue. Required time complexity: O(1).
+
+Examples
+
+const queue = new Queue();
+queue.isEmpty(); // true
+queue.enqueue(1);
+queue.enqueue(2);
+queue.length(); // 2
+queue.enqueue(3);
+queue.front(); // 1
+queue.back(); // 3
+queue.dequeue(); // 1
+queue.isEmpty(); // false
+
+
+*/
+
+class Queue {
+  constructor() {
+    this.Q = [];
+  }
+
+  /**
+   * Adds an item to the back of the queue.
+   * @param {*} item The item to be pushed onto the queue.
+   * @return {number} The new length of the queue.
+   */
+  enqueue(item) {
+    this.Q.push(item);
+    return this.Q.length;
+  }
+
+  /**
+   * Removes an item from the front of the queue.
+   * @return {*} The item at the front of the queue if it is not empty, `undefined` otherwise.
+   */
+  dequeue() {
+    return this.Q.shift();
+  }
+
+  /**
+   * Determines if the queue is empty.
+   * @return {boolean}
+   */
+  isEmpty() {
+    return this.Q.length === 0;
+  }
+
+  /**
+   * Returns the item at the front of the queue without removing it from the queue.
+   * @return {*} The item at the front of the queue if it is not empty, `undefined` otherwise.
+   */
+  front() {
+    return this.Q[0];
+  }
+
+  /**
+   * Returns the item at the back of the queue without removing it from the queue.
+   * @return {*} The item at the back of the queue if it is not empty, `undefined` otherwise.
+   */
+  back() {
+    return this.Q[this.Q.length - 1];
+  }
+
+  /**
+   * Returns the number of items in the queue.
+   * @return {number} The number of items in the queue.
+   */
+  length() {
+    return this.Q.length;
+  }
+}
