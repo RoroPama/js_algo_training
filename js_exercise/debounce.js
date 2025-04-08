@@ -6,7 +6,7 @@ Implement a debounce function which accepts a callback function and a wait durat
  * @param {number} wait
  * @return {Function}
  */
-function debounce(func, wait) {
+export default function debounce(func, wait) {
   let timeOutId;
 
   return function (...args) {

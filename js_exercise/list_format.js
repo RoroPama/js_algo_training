@@ -1,59 +1,70 @@
 /**
- * @param {Array<string>} items
- * @param {{sorted?: boolean, length?: number, unique?: boolean}} [options]
+ * Formate une liste de chaînes de caractères en une chaîne lisible
+ * @param {string[]} elements
+ * @param {Object} [options]
+ * @param {boolean} [options.sorted]
+ * @param {number} [options.length]
+ * @param {boolean} [options.unique]
  * @return {string}
  */
-export default function listFormat(items, options) {
-  if (!items || items.length === 0) {
+function formaterListe(elements = [], options = {}) {
+  if (!elements || elements.length === 0) {
     return "";
   }
 
-  let processedItems = items.filter((item) => item !== "");
+  let elementsTraites = [...elements];
 
-  if (processedItems.length === 0) {
+  elementsTraites = elementsTraites.filter((el) => el.trim() !== "");
+
+  if (options.unique === true) {
+    const ensembleUnique = new Set();
+    elementsTraites = elementsTraites.filter((el) => {
+      if (!ensembleUnique.has(el)) {
+        ensembleUnique.add(el);
+        return true;
+      }
+      return false;
+    });
+  }
+
+  if (options.sorted === true) {
+    elementsTraites.sort();
+  }
+
+  if (elementsTraites.length === 0) {
     return "";
   }
 
-  if (options && options.unique) {
-    processedItems = [...new Set(processedItems)];
+  if (elementsTraites.length === 1) {
+    return elementsTraites[0];
   }
 
-  if (options && options.sorted) {
-    processedItems.sort();
-  }
+  let elementsAffiches = elementsTraites;
+  let nbRestants = 0;
 
+  const optionLongueur = parseInt(options.length, 10);
   if (
-    options &&
-    typeof options.length === "number" &&
-    options.length > 0 &&
-    processedItems.length > options.length
+    !isNaN(optionLongueur) &&
+    optionLongueur > 0 &&
+    optionLongueur < elementsTraites.length
   ) {
-    const visibleItems = processedItems.slice(0, options.length);
-    const remainingCount = processedItems.length - options.length;
-
-    let visibleItemsFormatted;
-    if (visibleItems.length === 1) {
-      visibleItemsFormatted = visibleItems[0];
-    } else if (visibleItems.length === 2) {
-      visibleItemsFormatted = `${visibleItems[0]} and ${visibleItems[1]}`;
-    } else {
-      visibleItemsFormatted =
-        visibleItems.slice(0, -1).join(", ") +
-        ` and ${visibleItems[visibleItems.length - 1]}`;
-    }
-
-    return `${visibleItemsFormatted} and ${remainingCount} ${
-      remainingCount === 1 ? "other" : "others"
-    }`;
+    elementsAffiches = elementsTraites.slice(0, optionLongueur);
+    nbRestants = elementsTraites.length - optionLongueur;
   }
 
-  if (processedItems.length === 1) {
-    return processedItems[0];
-  } else if (processedItems.length === 2) {
-    return `${processedItems[0]} and ${processedItems[1]}`;
-  } else {
-    return `${processedItems.slice(0, -1).join(", ")} and ${
-      processedItems[processedItems.length - 1]
+  if (elementsAffiches.length === 2 && nbRestants === 0) {
+    return `${elementsAffiches[0]} and ${elementsAffiches[1]}`;
+  }
+
+  if (nbRestants > 0) {
+    return `${elementsAffiches.join(", ")} and ${nbRestants} ${
+      nbRestants === 1 ? "other" : "others"
     }`;
+  } else {
+    const dernierElement = elementsAffiches[elementsAffiches.length - 1];
+    const autresElements = elementsAffiches.slice(0, -1);
+    return `${autresElements.join(", ")} and ${dernierElement}`;
   }
 }
+
+export default formaterListe;

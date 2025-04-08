@@ -2,7 +2,7 @@
 Implement an EventEmitter class similar to the one in Node.js that follows such an observer pattern.
 
   */
-class EventEmitter {
+export default class EventEmitter {
   constructor() {
     this.events = new Map();
   }

@@ -6,6 +6,6 @@ Let's implement our own version of Promise.all(), a promiseAll function, with th
  * @param {Array} iterable
  * @return {Promise<Array>}
  */
-function promiseAll(iterable) {
+export default function promiseAll(iterable) {
   return Promise.all(iterable);
 }

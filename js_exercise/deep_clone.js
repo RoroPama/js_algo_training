@@ -10,7 +10,7 @@ Implement a deepClone function that performs a deep clone operation on JavaScrip
  * @param {T} value
  * @return {T}
  */
-function deepClone(value) {
+export default function deepClone(value) {
   if (value === null || typeof value !== "object") {
     return value;
   }

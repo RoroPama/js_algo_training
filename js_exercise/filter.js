@@ -1,6 +1,6 @@
 // Array.prototype.filter
 
-function filter(callback, thisArg) {
+export default function filter(callback, thisArg) {
   if (typeof callback !== "function") {
     throw new TypeError("Le paramètre callback doit être une fonction");
   }

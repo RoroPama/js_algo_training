@@ -5,7 +5,7 @@
  * @param {string} classNames
  * @return {Array<Element>}
  */
-function getElementsByClassName(element, classNames) {
+export default function getElementsByClassName(element, classNames) {
   const classesToMatch = classNames.trim().split(/\s+/);
 
   const results = [];
